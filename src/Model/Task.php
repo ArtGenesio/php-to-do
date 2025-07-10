@@ -17,10 +17,11 @@ class Task {
         return $pdo;
     }
 
-    public function getAll() : PDOStatement|false {
+    public function getAll() : array|false {
         $pdo = $this->connection();
         $sql = "SELECT * FROM tasks ORDER BY priority DESC";
-        return $pdo->query($sql);
+        $stmt =  $pdo->query($sql);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function addTask(string $title, int $priority) : bool {
